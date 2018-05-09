@@ -1,13 +1,31 @@
 import React, { Component } from "react";
 import "./Home.css";
-
+import axios from "axios";
 import Form from "./Form.js";
 import AllTrips from "./AllTrips.js";
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      stnList: false
+    };
+  }
+
+  componentDidMount() {
+    this.getStationList();
+  }
+
+  getStationList() {
+    let context = this;
+    axios
+      .get("/stnList")
+      .then(function(response) {
+        context.setState({ stnList: response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   render() {
