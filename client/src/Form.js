@@ -17,6 +17,15 @@ class Form extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!this.state.originStn) {
+      this.setState({ originStn: nextProps.stnList[0] });
+    }
+    if (!this.state.destinationStn) {
+      this.setState({ destinationStn: nextProps.stnList[0] });
+    }
+  }
+
   handleDateChange(date) {
     this.setState({
       tripDate: date
@@ -42,6 +51,7 @@ class Form extends Component {
   }
 
   handleFormSubmit() {
+    console.log("submitting state", this.state);
     let type = this.state.arriveBy ? "arrive" : "depart";
     let start = this.state.originStn.abbr;
     let end = this.state.destinationStn.abbr;
@@ -139,6 +149,7 @@ class Form extends Component {
             </button>
           </div>
         </div>
+        {console.log(this.state)}
       </div>
     );
   }
