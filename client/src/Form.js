@@ -55,8 +55,10 @@ class Form extends Component {
                     name="station"
                     onChange={this.handleOriginChange.bind(this)}
                   >
-                    {Object.keys(stnList).map(stn => (
-                      <option key={stn}>{stn}</option>
+                    {stnList.map(stn => (
+                      <option key={stn.abbr} value={stn}>
+                        {stn.name}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -72,8 +74,10 @@ class Form extends Component {
                     name="station"
                     onChange={this.handleDestinationChange.bind(this)}
                   >
-                    {Object.keys(stnList).map(stn => (
-                      <option key={stn}>{stn}</option>
+                    {stnList.map(stn => (
+                      <option key={stn.abbr} value={stn}>
+                        {stn.name}
+                      </option>
                     ))}
                   </select>
                 </div>
