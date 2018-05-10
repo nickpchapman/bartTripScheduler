@@ -8,14 +8,13 @@ app.get("/", (req, res) => {
   res.send(res);
 });
 
-//get current list of all Bart stations
+//handle request for current list of all Bart stations
 app.get("/stnList", (req, res) => {
   axios
     .get(
       "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y"
     )
     .then(function(response) {
-      console.log(response);
       let newList = response.data.root.stations.station.reduce((list, stn) => {
         list[stn.name] = stn;
         return list;
