@@ -35,8 +35,7 @@ app.get("/newSchedule", (req, res) => {
   axios
     .get(head + type + key + orig + dest + date + tail)
     .then(function(response) {
-      console.log(response.data);
-      res.json(response.data.root);
+      res.json(response.data.root.schedule.request);
     })
     .catch(function(error) {
       console.log(error);

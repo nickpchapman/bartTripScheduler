@@ -10,16 +10,16 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: moment(),
-      originStn: "12th St. Oakland City Center",
-      destinationStn: "12th St. Oakland City Center",
+      tripDate: moment(),
+      originStn: false,
+      destinationStn: false,
       arriveBy: true
     };
   }
 
   handleDateChange(date) {
     this.setState({
-      startDate: date
+      tripDate: date
     });
   }
 
@@ -39,6 +39,14 @@ class Form extends Component {
     this.setState({
       arriveBy: !this.state.arriveBy
     });
+  }
+
+  handleFormSubmit() {
+    let type = this.state.arriveBy ? "arrive" : "depart";
+    let start = this.state.originStn.abbr;
+    let end = this.state.destinationStn.abbr;
+    let date = "now";
+    this.props.getNewSchedule(type, start, end, date);
   }
 
   render() {
@@ -112,7 +120,7 @@ class Form extends Component {
         <div>
           <label class="label">Date and Time</label>
           <DatePicker
-            selected={this.state.startDate}
+            selected={this.state.tripDate}
             onChange={this.handleDateChange.bind(this)}
             showTimeSelect
             timeFormat="HH:mm"
@@ -123,7 +131,12 @@ class Form extends Component {
         </div>
         <div class="field is-grouped">
           <div class="control">
-            <button class="button is-link">Submit</button>
+            <button
+              class="button is-link"
+              onClick={this.handleFormSubmit.bind(this)}
+            >
+              Submit
+            </button>
           </div>
         </div>
       </div>

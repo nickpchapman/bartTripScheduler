@@ -11,7 +11,8 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stnList: []
+      stnList: [],
+      tripSchedule: []
     };
   }
 
@@ -21,10 +22,32 @@ class Home extends Component {
 
   getStationList() {
     let context = this;
+
     axios
       .get("/stnList")
       .then(function(response) {
         context.setState({ stnList: response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  getTripSchedule(tripType, startStn, endStn, tripDate) {
+    let context = this;
+
+    axios
+      .get("/newSchedule", {
+        params: {
+          type: tripType,
+          orig: startStn,
+          dest: endStn,
+          date: tripDate
+        }
+      })
+      .then(function(response) {
+        console.log("data back", response.data);
+        context.setState({ tripSchedule: response.data.trip });
       })
       .catch(function(error) {
         console.log(error);
@@ -36,7 +59,10 @@ class Home extends Component {
       <div className="Home">
         <h1 className="App-title">Bart Trip Planner</h1>
         Home Component
-        <Form stnList={this.state.stnList} />
+        <Form
+          stnList={this.state.stnList}
+          getNewSchedule={this.getTripSchedule.bind(this)}
+        />
         <AllTrips />
       </div>
     );
