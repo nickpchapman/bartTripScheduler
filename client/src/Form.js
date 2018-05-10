@@ -10,7 +10,9 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: moment()
+      startDate: moment(),
+      originStn: false,
+      destinationStn: false
     };
   }
 
@@ -20,7 +22,20 @@ class Form extends Component {
     });
   }
 
+  handleOriginChange(e) {
+    this.setState({
+      originStn: e.target.value
+    });
+  }
+
+  handleDestinationChange(e) {
+    this.setState({
+      destinationStn: e.target.value
+    });
+  }
+
   render() {
+    let { stnList } = this.props;
     return (
       <div class="box main-form">
         <div class="columns">
@@ -29,9 +44,13 @@ class Form extends Component {
               <label class="label">Leaving From</label>
               <div class="control">
                 <div class="select">
-                  <select>
-                    <option>Select dropdown</option>
-                    <option>With options</option>
+                  <select
+                    name="station"
+                    onChange={this.handleOriginChange.bind(this)}
+                  >
+                    {Object.keys(stnList).map(stn => (
+                      <option key={stn}>{stn}</option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -42,9 +61,13 @@ class Form extends Component {
               <label class="label">Arriving At</label>
               <div class="control">
                 <div class="select">
-                  <select>
-                    <option>Select dropdown</option>
-                    <option>With options</option>
+                  <select
+                    name="station"
+                    onChange={this.handleDestinationChange.bind(this)}
+                  >
+                    {Object.keys(stnList).map(stn => (
+                      <option key={stn}>{stn}</option>
+                    ))}
                   </select>
                 </div>
               </div>

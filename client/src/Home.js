@@ -36,7 +36,7 @@ class Home extends Component {
       <div className="Home">
         <h1 className="App-title">Bart Trip Planner</h1>
         Home Component
-        <Form />
+        <Form stnList={this.state.stnList} />
         <AllTrips />
       </div>
     );
