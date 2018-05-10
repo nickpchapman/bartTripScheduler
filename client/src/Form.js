@@ -11,8 +11,9 @@ class Form extends Component {
     super(props);
     this.state = {
       startDate: moment(),
-      originStn: false,
-      destinationStn: false
+      originStn: "12th St. Oakland City Center",
+      destinationStn: "12th St. Oakland City Center",
+      arriveBy: true
     };
   }
 
@@ -31,6 +32,12 @@ class Form extends Component {
   handleDestinationChange(e) {
     this.setState({
       destinationStn: e.target.value
+    });
+  }
+
+  handleArriveByChange(e) {
+    this.setState({
+      arriveBy: !this.state.arriveBy
     });
   }
 
@@ -74,18 +81,30 @@ class Form extends Component {
             </div>
           </div>
         </div>
+
         <div class="field">
           <div class="control">
             <label class="radio">
-              <input type="radio" name="question" />
+              <input
+                type="radio"
+                name="arriveBy"
+                onChange={this.handleArriveByChange.bind(this)}
+                checked={this.state.arriveBy}
+              />
               Arrive By
             </label>
             <label class="radio">
-              <input type="radio" name="question" />
+              <input
+                type="radio"
+                name="arriveBy"
+                onChange={this.handleArriveByChange.bind(this)}
+                checked={!this.state.arriveBy}
+              />
               Leave By
             </label>
           </div>
         </div>
+
         <div>
           <label class="label">Date and Time</label>
           <DatePicker
