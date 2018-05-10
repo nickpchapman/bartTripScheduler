@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./Home.css";
+
 import axios from "axios";
+import "bulma/css/bulma.css";
+
 import Form from "./Form.js";
 import AllTrips from "./AllTrips.js";
 
