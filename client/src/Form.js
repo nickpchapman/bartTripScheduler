@@ -13,7 +13,8 @@ class Form extends Component {
       tripDate: moment(),
       originStn: false,
       destinationStn: false,
-      arriveBy: true
+      arriveBy: true,
+      alert: ""
     };
   }
 
@@ -57,7 +58,12 @@ class Form extends Component {
     let end = this.state.destinationStn.abbr;
     let date = this.state.tripDate.format("MM/DD/YYYY");
     let time = this.state.tripDate.format("h:mm+a");
-    this.props.getNewSchedule(type, start, end, date, time);
+    if (start === end) {
+      this.setState({ alert: "cannot leave and arrive from same station" });
+    } else {
+      this.setState({ alert: "" });
+      this.props.getNewSchedule(type, start, end, date, time);
+    }
   }
 
   render() {
@@ -104,6 +110,7 @@ class Form extends Component {
             </div>
           </div>
         </div>
+        <div class="has-text-danger">{this.state.alert}</div>
         <div class="field">
           <div class="control">
             <label class="radio">
@@ -120,7 +127,6 @@ class Form extends Component {
                 type="radio"
                 name="arriveBy"
                 onChange={this.handleArriveByChange.bind(this)}
-                checked={!this.state.arriveBy}
               />
               Leave By
             </label>
