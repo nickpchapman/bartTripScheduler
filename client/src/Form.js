@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import "./Form.css";
-
 import DatePicker from "react-datepicker";
 import moment from "moment";
 
 import "react-datepicker/dist/react-datepicker.css";
+import "./Form.css";
 
 class Form extends Component {
   constructor(props) {
