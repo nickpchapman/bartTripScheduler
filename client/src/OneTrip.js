@@ -5,6 +5,8 @@ let OneTrip = ({ trip }) => {
   return (
     <div className="box ">
       {trip.leg.map(leg => {
+        console.log("leg", leg);
+        console.log("transfer", leg["@transfercode"] === "");
         return (
           <div>
             <div>{leg["@origTimeMin"]}</div>
@@ -15,11 +17,7 @@ let OneTrip = ({ trip }) => {
 
             <div />
             <div>
-              {leg["@transferCode"] === "" ? (
-                <div>no transfer</div>
-              ) : (
-                <div>transfer</div>
-              )}
+              {leg["@transfercode"] === "" ? <div /> : <div>transfer</div>}
             </div>
           </div>
         );

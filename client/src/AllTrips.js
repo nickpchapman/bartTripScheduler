@@ -6,15 +6,15 @@ class AllTrips extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hasRecievedTrips: false
+      hasTripInfo: false
     };
   }
 
-  //only render trip info if props have been received
+  //only attempt to render trip info if props have been received
   static getDerivedStateFromProps(nextProps, prevState) {
     let newState = prevState;
-    if (!prevState.hasRecievedTrips && nextProps.currentTrips) {
-      newState.hasRecievedTrips = true;
+    if (!prevState.hasTripInfo && nextProps.currentTrips) {
+      newState.hasTripInfo = true;
     }
     return newState;
   }
@@ -23,14 +23,16 @@ class AllTrips extends Component {
     let { destination, origin, schedule, tripType } = this.props.currentTrips;
     return (
       <div>
-        {!this.state.hasRecievedTrips ? (
+        {!this.state.hasTripInfo ? (
           <div>select a new schedule</div>
         ) : (
           <div class="box trip-list-box">
-            <div class="is-size-1 has-text-centered">{`${origin} to ${destination}`}</div>
-            <div class="is-size-3">{`${tripType} by ${schedule.time} on ${
-              schedule.date
-            }`}</div>
+            <div class="is-size-1 has-text-centered">
+              {`${origin} to ${destination}`}
+            </div>
+            <div class="is-size-3">
+              {`${tripType} by ${schedule.time} on ${schedule.date}`}
+            </div>
             {schedule.request.trip.map(tripInfo => <OneTrip trip={tripInfo} />)}
           </div>
         )}
