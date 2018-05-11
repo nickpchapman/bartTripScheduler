@@ -14,7 +14,7 @@ class Form extends Component {
       originStn: false,
       destinationStn: false,
       arriveBy: true,
-      alert: ""
+      alert: false
     };
   }
 
@@ -59,9 +59,9 @@ class Form extends Component {
     let date = this.state.tripDate.format("MM/DD/YYYY");
     let time = this.state.tripDate.format("h:mm+a");
     if (start === end) {
-      this.setState({ alert: "cannot leave and arrive from same station" });
+      this.setState({ alert: true });
     } else {
-      this.setState({ alert: "" });
+      this.setState({ alert: false });
       this.props.getNewSchedule(type, start, end, date, time);
     }
   }
@@ -110,7 +110,13 @@ class Form extends Component {
             </div>
           </div>
         </div>
-        <div class="has-text-danger">{this.state.alert}</div>
+        {this.state.alert ? (
+          <div class="has-text-danger">
+            Cannot Leave and Arrive at Same Station
+          </div>
+        ) : (
+          <div />
+        )}
         <div class="field">
           <div class="control">
             <label class="radio">
