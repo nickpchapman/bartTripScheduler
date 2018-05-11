@@ -34,7 +34,6 @@ class Form extends Component {
   }
 
   handleOriginChange(e) {
-    console.log("origin", e.target);
     this.setState({
       originStn: JSON.parse(e.target.value)
     });

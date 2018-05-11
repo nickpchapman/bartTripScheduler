@@ -21,21 +21,19 @@ class Home extends Component {
   }
 
   getStationList() {
-    let context = this;
-
     axios
       .get("/stnList")
-      .then(function(response) {
-        context.setState({ stnList: response.data });
-      })
+      .then(
+        function(response) {
+          this.setState({ stnList: response.data });
+        }.bind(this)
+      )
       .catch(function(error) {
         console.log(error);
       });
   }
 
   getTripSchedule(tripType, startStn, endStn, tripDate, tripTime) {
-    let context = this;
-
     axios
       .get("/newSchedule", {
         params: {
@@ -46,10 +44,12 @@ class Home extends Component {
           time: tripTime
         }
       })
-      .then(function(response) {
-        console.log("data back", response.data);
-        context.setState({ tripSchedule: response.data.trip });
-      })
+      .then(
+        function(response) {
+          console.log("data back", response.data);
+          this.setState({ tripSchedule: response.data.trip });
+        }.bind(this)
+      )
       .catch(function(error) {
         console.log(error);
       });
