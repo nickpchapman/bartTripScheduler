@@ -18,13 +18,13 @@ class Form extends Component {
     };
   }
 
-  //set default state of origin and destination stations
-  componentWillReceiveProps(nextProps) {
-    if (!this.state.originStn) {
-      this.setState({ originStn: nextProps.stnList[0] });
+  //set default stations for origin and destination
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!prevState.originStn) {
+      prevState.originStn = nextProps.stnList[0];
     }
-    if (!this.state.destinationStn) {
-      this.setState({ destinationStn: nextProps.stnList[0] });
+    if (!prevState.destinationStn) {
+      prevState.destinationStn = nextProps.stnList[0];
     }
   }
 
@@ -58,6 +58,8 @@ class Form extends Component {
     let end = this.state.destinationStn.abbr;
     let date = this.state.tripDate.format("MM/DD/YYYY");
     let time = this.state.tripDate.format("h:mm+a");
+
+    //set alert message if origin/destination station the same
     if (start === end) {
       this.setState({ alert: true });
     } else {
@@ -112,7 +114,7 @@ class Form extends Component {
         </div>
         {this.state.alert ? (
           <div class="has-text-danger">
-            Cannot Leave and Arrive at Same Station
+            Cannot Leave and Arrive From Same Station
           </div>
         ) : (
           <div />
