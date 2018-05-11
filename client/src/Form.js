@@ -46,10 +46,10 @@ class Form extends Component {
     });
   }
 
-  handleArriveByChange(e) {
-    this.setState({
-      arriveBy: !this.state.arriveBy
-    });
+  handleArriveByChange() {
+    this.setState(prevState => ({
+      arriveBy: !prevState.arriveBy
+    }));
   }
 
   handleFormSubmit() {
@@ -71,13 +71,13 @@ class Form extends Component {
   render() {
     let { stnList } = this.props;
     return (
-      <div class="box main-form">
-        <div class="columns">
-          <div class="column">
-            <div class="field">
-              <label class="label">Leaving From</label>
-              <div class="control">
-                <div class="select">
+      <div className="box main-form">
+        <div className="columns">
+          <div className="column">
+            <div className="field">
+              <label className="label">Leaving From</label>
+              <div className="control">
+                <div className="select">
                   <select
                     name="station"
                     onChange={this.handleOriginChange.bind(this)}
@@ -92,11 +92,11 @@ class Form extends Component {
               </div>
             </div>
           </div>
-          <div class="column">
-            <div class="field">
-              <label class="label">Arriving At</label>
-              <div class="control">
-                <div class="select">
+          <div className="column">
+            <div className="field">
+              <label className="label">Arriving At</label>
+              <div className="control">
+                <div className="select">
                   <select
                     name="station"
                     onChange={this.handleDestinationChange.bind(this)}
@@ -113,15 +113,15 @@ class Form extends Component {
           </div>
         </div>
         {this.state.alert ? (
-          <div class="has-text-danger">
+          <div className="has-text-danger">
             Cannot Leave and Arrive From Same Station
           </div>
         ) : (
           <div />
         )}
-        <div class="field">
-          <div class="control">
-            <label class="radio">
+        <div className="field">
+          <div className="control">
+            <label className="radio">
               <input
                 type="radio"
                 name="arriveBy"
@@ -130,7 +130,7 @@ class Form extends Component {
               />
               Arrive By
             </label>
-            <label class="radio">
+            <label className="radio">
               <input
                 type="radio"
                 name="arriveBy"
@@ -141,7 +141,7 @@ class Form extends Component {
           </div>
         </div>
         <div>
-          <label class="label">Date and Time</label>
+          <label className="label">Date and Time</label>
           <DatePicker
             selected={this.state.tripDate}
             onChange={this.handleDateChange.bind(this)}
@@ -152,10 +152,10 @@ class Form extends Component {
             timeCaption="time"
           />
         </div>
-        <div class="field is-grouped">
-          <div class="control">
+        <div className="field is-grouped">
+          <div className="control">
             <button
-              class="button is-link"
+              className="button is-link"
               onClick={this.handleFormSubmit.bind(this)}
             >
               Submit

@@ -13,7 +13,7 @@ let OneTrip = ({ trip, stnLook }) => {
             <div>{stnLook[leg["@destination"]]}</div>
 
             <div />
-            <div class="has-text-centered">
+            <div className="has-text-centered">
               {leg["@transfercode"] === "" ? <div /> : <div>transfer</div>}
             </div>
           </div>

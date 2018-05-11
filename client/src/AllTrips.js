@@ -28,11 +28,11 @@ class AllTrips extends Component {
         {!this.state.hasTripInfo ? (
           <div>select a new schedule</div>
         ) : (
-          <div class="box trip-list-box">
-            <div class="is-size-3 has-text-centered">
+          <div className="box trip-list-box">
+            <div className="is-size-3 has-text-centered">
               {`${stnLook[origin]} to ${stnLook[destination]}`}
             </div>
-            <div class="is-size-3">
+            <div className="is-size-3">
               {`${tripType} by ${schedule.time} on ${schedule.date}`}
             </div>
             {schedule.request.trip.map(singleTrip => (
