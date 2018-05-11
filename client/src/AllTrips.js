@@ -35,9 +35,16 @@ class AllTrips extends Component {
             <div className="is-size-3">
               {`${tripType} by ${schedule.time} on ${schedule.date}`}
             </div>
-            {schedule.request.trip.map(singleTrip => (
-              <OneTrip trip={singleTrip} stnLook={stnLook} />
-            ))}
+            {schedule.request.trip.map(singleTrip => {
+              console.log(singleTrip);
+              return (
+                <OneTrip
+                  key={singleTrip.leg[0]["@trainId"]}
+                  trip={singleTrip}
+                  stnLook={stnLook}
+                />
+              );
+            })}
           </div>
         )}
       </div>
