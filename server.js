@@ -15,7 +15,15 @@ app.get("/stnList", (req, res) => {
       "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y"
     )
     .then(function(response) {
-      res.json(response.data.root.stations.station);
+      let stnInfo = response.data.root.stations;
+
+      //add station abbr hash for station name lookup
+      stnInfo.lookup = stnInfo.station.reduce((hash, stn) => {
+        hash[stn.abbr] = stn.name;
+        return hash;
+      }, {});
+
+      res.json(stnInfo);
     })
     .catch(function(error) {
       console.log(error);
