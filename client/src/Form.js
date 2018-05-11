@@ -26,6 +26,7 @@ class Form extends Component {
     if (!prevState.destinationStn) {
       prevState.destinationStn = nextProps.stnList[0];
     }
+    return prevState;
   }
 
   handleDateChange(date) {
