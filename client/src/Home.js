@@ -12,7 +12,7 @@ class Home extends Component {
     super(props);
     this.state = {
       stnList: [],
-      tripSchedule: []
+      currentSchedule: false
     };
   }
 
@@ -47,7 +47,7 @@ class Home extends Component {
       .then(
         function(response) {
           console.log("data back", response.data);
-          this.setState({ tripSchedule: response.data.trip });
+          this.setState({ currentSchedule: response.data });
         }.bind(this)
       )
       .catch(function(error) {
@@ -64,7 +64,7 @@ class Home extends Component {
           stnList={this.state.stnList}
           getNewSchedule={this.getTripSchedule.bind(this)}
         />
-        <AllTrips />
+        <AllTrips currentTrips={this.state.currentSchedule} />
       </div>
     );
   }
