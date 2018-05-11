@@ -24,14 +24,12 @@ class Home extends Component {
   getStationList() {
     axios
       .get("/stnList")
-      .then(
-        function(response) {
-          this.setState({
-            stnList: response.data.station,
-            stnLookup: response.data.lookup
-          });
-        }.bind(this)
-      )
+      .then(response => {
+        this.setState({
+          stnList: response.data.station,
+          stnLookup: response.data.lookup
+        });
+      })
       .catch(function(error) {
         console.log(error);
       });
@@ -48,12 +46,9 @@ class Home extends Component {
           time: tripTime
         }
       })
-      .then(
-        function(response) {
-          console.log("data back", response.data);
-          this.setState({ currentSchedule: response.data });
-        }.bind(this)
-      )
+      .then(response => {
+        this.setState({ currentSchedule: response.data });
+      })
       .catch(function(error) {
         console.log(error);
       });

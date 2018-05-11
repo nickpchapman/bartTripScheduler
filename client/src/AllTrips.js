@@ -20,7 +20,6 @@ class AllTrips extends Component {
   }
 
   render() {
-    console.log("all trips props", this.props);
     let { destination, origin, schedule, tripType } = this.props.currentTrips;
     let stnLook = this.props.stnLookup;
     return (
@@ -35,7 +34,9 @@ class AllTrips extends Component {
             <div class="is-size-3">
               {`${tripType} by ${schedule.time} on ${schedule.date}`}
             </div>
-            {schedule.request.trip.map(tripInfo => <OneTrip trip={tripInfo} />)}
+            {schedule.request.trip.map(singleTrip => (
+              <OneTrip trip={singleTrip} stnLook={stnLook} />
+            ))}
           </div>
         )}
       </div>

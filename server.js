@@ -14,7 +14,7 @@ app.get("/stnList", (req, res) => {
     .get(
       "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y"
     )
-    .then(function(response) {
+    .then(response => {
       let stnInfo = response.data.root.stations;
 
       //add station abbr hash for station name lookup
@@ -43,7 +43,7 @@ app.get("/newSchedule", (req, res) => {
 
   axios
     .get(head + type + key + orig + dest + date + time + tail)
-    .then(function(response) {
+    .then(response => {
       let scheduleInfo = response.data.root;
 
       //add 'arrive' or 'depart' value to indicate request type

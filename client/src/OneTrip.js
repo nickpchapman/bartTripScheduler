@@ -1,22 +1,19 @@
 import React from "react";
 
-let OneTrip = ({ trip }) => {
-  console.log(trip);
+let OneTrip = ({ trip, stnLook }) => {
   return (
     <div className="box ">
       {trip.leg.map(leg => {
-        console.log("leg", leg);
-        console.log("transfer", leg["@transfercode"] === "");
         return (
           <div>
             <div>{leg["@origTimeMin"]}</div>
-            <div>{leg["@origin"]}</div>
-            <div>{`${leg["@trainHeadStation"]} bound train`}</div>
+            <div>{stnLook[leg["@origin"]]}</div>
+            <div>{`${stnLook[leg["@trainHeadStation"]]} bound train`}</div>
             <div>{leg["@destTimeMin"]}</div>
-            <div>{leg["@destination"]}</div>
+            <div>{stnLook[leg["@destination"]]}</div>
 
             <div />
-            <div>
+            <div class="has-text-centered">
               {leg["@transfercode"] === "" ? <div /> : <div>transfer</div>}
             </div>
           </div>
