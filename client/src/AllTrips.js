@@ -20,15 +20,17 @@ class AllTrips extends Component {
   }
 
   render() {
+    console.log("all trips props", this.props);
     let { destination, origin, schedule, tripType } = this.props.currentTrips;
+    let stnLook = this.props.stnLookup;
     return (
       <div>
         {!this.state.hasTripInfo ? (
           <div>select a new schedule</div>
         ) : (
           <div class="box trip-list-box">
-            <div class="is-size-1 has-text-centered">
-              {`${origin} to ${destination}`}
+            <div class="is-size-3 has-text-centered">
+              {`${stnLook[origin]} to ${stnLook[destination]}`}
             </div>
             <div class="is-size-3">
               {`${tripType} by ${schedule.time} on ${schedule.date}`}

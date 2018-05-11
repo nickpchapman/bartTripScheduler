@@ -12,6 +12,7 @@ class Home extends Component {
     super(props);
     this.state = {
       stnList: [],
+      stnLookup: false,
       currentSchedule: false
     };
   }
@@ -25,7 +26,10 @@ class Home extends Component {
       .get("/stnList")
       .then(
         function(response) {
-          this.setState({ stnList: response.data });
+          this.setState({
+            stnList: response.data.station,
+            stnLookup: response.data.lookup
+          });
         }.bind(this)
       )
       .catch(function(error) {
@@ -59,12 +63,14 @@ class Home extends Component {
     return (
       <div className="Home">
         <h1 className="App-title">Bart Trip Planner</h1>
-        Home Component
         <Form
           stnList={this.state.stnList}
           getNewSchedule={this.getTripSchedule.bind(this)}
         />
-        <AllTrips currentTrips={this.state.currentSchedule} />
+        <AllTrips
+          currentTrips={this.state.currentSchedule}
+          stnLookup={this.state.stnLookup}
+        />
       </div>
     );
   }
