@@ -17,6 +17,7 @@ class Form extends Component {
     };
   }
 
+  //set default state of origin and destination stations
   componentWillReceiveProps(nextProps) {
     if (!this.state.originStn) {
       this.setState({ originStn: nextProps.stnList[0] });
@@ -33,14 +34,15 @@ class Form extends Component {
   }
 
   handleOriginChange(e) {
+    console.log("origin", e.target);
     this.setState({
-      originStn: e.target.value
+      originStn: JSON.parse(e.target.value)
     });
   }
 
   handleDestinationChange(e) {
     this.setState({
-      destinationStn: e.target.value
+      destinationStn: JSON.parse(e.target.value)
     });
   }
 
@@ -51,12 +53,12 @@ class Form extends Component {
   }
 
   handleFormSubmit() {
-    console.log("submitting state", this.state);
     let type = this.state.arriveBy ? "arrive" : "depart";
     let start = this.state.originStn.abbr;
     let end = this.state.destinationStn.abbr;
-    let date = "now";
-    this.props.getNewSchedule(type, start, end, date);
+    let date = this.state.tripDate.format("MM/DD/YYYY");
+    let time = this.state.tripDate.format("h:mm+a");
+    this.props.getNewSchedule(type, start, end, date, time);
   }
 
   render() {
@@ -74,7 +76,7 @@ class Form extends Component {
                     onChange={this.handleOriginChange.bind(this)}
                   >
                     {stnList.map(stn => (
-                      <option key={stn.abbr} value={stn}>
+                      <option key={stn.abbr} value={JSON.stringify(stn)}>
                         {stn.name}
                       </option>
                     ))}
@@ -93,7 +95,7 @@ class Form extends Component {
                     onChange={this.handleDestinationChange.bind(this)}
                   >
                     {stnList.map(stn => (
-                      <option key={stn.abbr} value={stn}>
+                      <option key={stn.abbr} value={JSON.stringify(stn)}>
                         {stn.name}
                       </option>
                     ))}
@@ -103,7 +105,6 @@ class Form extends Component {
             </div>
           </div>
         </div>
-
         <div class="field">
           <div class="control">
             <label class="radio">
@@ -126,7 +127,6 @@ class Form extends Component {
             </label>
           </div>
         </div>
-
         <div>
           <label class="label">Date and Time</label>
           <DatePicker
@@ -149,7 +149,6 @@ class Form extends Component {
             </button>
           </div>
         </div>
-        {console.log(this.state)}
       </div>
     );
   }

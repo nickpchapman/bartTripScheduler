@@ -33,7 +33,7 @@ class Home extends Component {
       });
   }
 
-  getTripSchedule(tripType, startStn, endStn, tripDate) {
+  getTripSchedule(tripType, startStn, endStn, tripDate, tripTime) {
     let context = this;
 
     axios
@@ -42,7 +42,8 @@ class Home extends Component {
           type: tripType,
           orig: startStn,
           dest: endStn,
-          date: tripDate
+          date: tripDate,
+          time: tripTime
         }
       })
       .then(function(response) {
