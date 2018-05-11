@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./AllTrips.css";
+import OneTrip from "./OneTrip.js";
 
 class AllTrips extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class AllTrips extends Component {
             <div class="is-size-3">{`${tripType} by ${schedule.time} on ${
               schedule.date
             }`}</div>
+            {schedule.request.trip.map(tripInfo => <OneTrip trip={tripInfo} />)}
           </div>
         )}
       </div>
