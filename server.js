@@ -34,16 +34,18 @@ app.get("/newSchedule", (req, res) => {
   let time = "&time=" + req.query.time;
 
   axios
-    .get(head + type + key + orig + dest + date + tail)
+    .get(head + type + key + orig + dest + date + time + tail)
     .then(function(response) {
-      // console.log(response);
-      res.json(response.data.root.schedule.request);
+      let scheduleInfo = response.data.root;
+
+      //add 'arrive' or 'depart' value to indicate request type
+      scheduleInfo.tripType = req.query.type;
+
+      res.json(scheduleInfo);
     })
     .catch(function(error) {
       console.log(error);
     });
-
-  // res.send();
 });
 
 app.listen(port, () => console.log(`Listening on port: ${port}`));
