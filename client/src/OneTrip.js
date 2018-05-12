@@ -6,15 +6,29 @@ const OneTrip = ({ trip, stnLook }) => {
       {trip.leg.map(leg => {
         return (
           <div key={leg["@trainId"]}>
-            <div>{leg["@origTimeMin"]}</div>
-            <div>{stnLook[leg["@origin"]]}</div>
-            <div>{`${stnLook[leg["@trainHeadStation"]]} bound train`}</div>
-            <div>{leg["@destTimeMin"]}</div>
-            <div>{stnLook[leg["@destination"]]}</div>
-
-            <div />
-            <div className="has-text-centered">
-              {leg["@transfercode"] === "" ? <div /> : <div>transfer</div>}
+            <div className="columns">
+              <div className="column is-one-third">
+                <div className="is-size-5-desktop has-text-weight-bold">
+                  {leg["@origTimeMin"]}
+                </div>
+                <div>{stnLook[leg["@origin"]]}</div>
+              </div>
+              <div className="column has-text-centered is-one-third">
+                {`${stnLook[leg["@trainHeadStation"]]} bound train`}
+                <div>
+                  {leg["@transfercode"] === "" ? (
+                    <div />
+                  ) : (
+                    <div className="has-text-danger">transfer</div>
+                  )}
+                </div>
+              </div>
+              <div className="column is-one-third has-text-right">
+                <div className="is-size-5-desktop has-text-weight-bold ">
+                  {leg["@destTimeMin"]}
+                </div>
+                <div>{stnLook[leg["@destination"]]}</div>
+              </div>
             </div>
           </div>
         );

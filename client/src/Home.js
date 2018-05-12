@@ -56,22 +56,22 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <section className="hero is-info is-fullheight is-bold">
+        <section className="hero is-info is-fullheight is-bold background">
           <div className="hero-head">
             <div className="container main-container">
               <h1 className="title">BART Trip Planner</h1>
               <h2 className="subtitle">Now with more BART!</h2>
 
-              <div class="columns">
-                <div class="column is-narrow">
-                  <div class="box">
+              <div className="columns">
+                <div className="column is-narrow">
+                  <div className="box">
                     <Form
                       stnList={this.state.stnList}
                       getNewSchedule={this.getTripSchedule.bind(this)}
                     />
                   </div>
                 </div>
-                <div class="column">
+                <div className="column">
                   <AllTrips
                     currentTrips={this.state.currentSchedule}
                     stnLookup={this.state.stnLookup}

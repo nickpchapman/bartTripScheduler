@@ -89,28 +89,28 @@ class Form extends Component {
             stnList={stnList}
           />
         </div>
-        <div className="field">
-          <label className="label has-text-left">Date and Time</label>
-          <div className="control">
-            <label className="radio">
-              <input
-                type="radio"
-                name="arriveBy"
-                onChange={this.handleArriveByChange}
-                checked={this.state.arriveBy}
-              />
-              Arriving Around
-            </label>
-            <label className="radio">
-              <input
-                type="radio"
-                name="arriveBy"
-                onChange={this.handleArriveByChange}
-              />
-              Departing Around
-            </label>
-          </div>
+
+        <label className="label has-text-left">Date and Time</label>
+        <div className="control">
+          <label className="radio">
+            <input
+              type="radio"
+              name="arriveBy"
+              onChange={this.handleArriveByChange}
+              checked={this.state.arriveBy}
+            />
+            Arriving around
+          </label>
+          <label className="radio">
+            <input
+              type="radio"
+              name="arriveBy"
+              onChange={this.handleArriveByChange}
+            />
+            Departing around
+          </label>
         </div>
+
         <div className="field date-picker">
           <DatePicker
             selected={this.state.tripDate}
