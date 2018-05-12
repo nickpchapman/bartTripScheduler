@@ -1,11 +1,11 @@
 import React from "react";
 
-let OneTrip = ({ trip, stnLook }) => {
+const OneTrip = ({ trip, stnLook }) => {
   return (
     <div className="box ">
       {trip.leg.map(leg => {
         return (
-          <div>
+          <div key={leg["@trainId"]}>
             <div>{leg["@origTimeMin"]}</div>
             <div>{stnLook[leg["@origin"]]}</div>
             <div>{`${stnLook[leg["@trainHeadStation"]]} bound train`}</div>

@@ -53,11 +53,11 @@ class Form extends Component {
   }
 
   handleFormSubmit() {
-    let type = this.state.arriveBy ? "arrive" : "depart";
-    let start = this.state.originStn.abbr;
-    let end = this.state.destinationStn.abbr;
-    let date = this.state.tripDate.format("MM/DD/YYYY");
-    let time = this.state.tripDate.format("h:mm+a");
+    const type = this.state.arriveBy ? "arrive" : "depart";
+    const start = this.state.originStn.abbr;
+    const end = this.state.destinationStn.abbr;
+    const date = this.state.tripDate.format("MM/DD/YYYY");
+    const time = this.state.tripDate.format("h:mm+a");
 
     //set alert message if origin/destination station the same
     if (start === end) {
@@ -69,7 +69,7 @@ class Form extends Component {
   }
 
   render() {
-    let { stnList } = this.props;
+    const { stnList } = this.props;
     return (
       <div className="box main-form">
         <div className="columns">

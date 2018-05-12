@@ -13,16 +13,15 @@ class AllTrips extends Component {
 
   //only attempt to render trip info if props have been received
   static getDerivedStateFromProps(nextProps, prevState) {
-    let newState = prevState;
     if (!prevState.hasTripInfo && nextProps.currentTrips) {
-      newState.hasTripInfo = true;
+      prevState.hasTripInfo = true;
     }
-    return newState;
+    return prevState;
   }
 
   render() {
-    let { destination, origin, schedule, tripType } = this.props.currentTrips;
-    let stnLook = this.props.stnLookup;
+    const { destination, origin, schedule, tripType } = this.props.currentTrips;
+    const stnLook = this.props.stnLookup;
     return (
       <div>
         {!this.state.hasTripInfo ? (
@@ -36,7 +35,6 @@ class AllTrips extends Component {
               {`${tripType} by ${schedule.time} on ${schedule.date}`}
             </div>
             {schedule.request.trip.map(singleTrip => {
-              console.log(singleTrip);
               return (
                 <OneTrip
                   key={singleTrip.leg[0]["@trainId"]}
