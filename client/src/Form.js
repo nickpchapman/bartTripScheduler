@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 
+import DropDown from "./DropDown.js";
 import "react-datepicker/dist/react-datepicker.css";
 
 class Form extends Component {
@@ -14,6 +15,12 @@ class Form extends Component {
       arriveBy: true,
       alert: false
     };
+
+    this.handleOriginChange = this.handleOriginChange.bind(this);
+    this.handleDestinationChange = this.handleDestinationChange.bind(this);
+    this.handleArriveByChange = this.handleArriveByChange.bind(this);
+    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   //set default stations for origin and destination
@@ -71,46 +78,26 @@ class Form extends Component {
     const { stnList } = this.props;
     return (
       <div className="box main-form">
-        <div className="columns">
-          <div className="column">
-            <div className="field">
-              <label className="label">Leaving From</label>
-              <div className="control">
-                <div className="select">
-                  <select
-                    name="station"
-                    onChange={this.handleOriginChange.bind(this)}
-                  >
-                    {stnList.map(stn => (
-                      <option key={stn.abbr} value={JSON.stringify(stn)}>
-                        {stn.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+        <nav class="level">
+          <div class="level-item">
+            <div class="field">
+              <label class="label has-text-left">Depart</label>
+              <DropDown
+                handleChange={this.handleOriginChange}
+                stnList={stnList}
+              />
             </div>
           </div>
-          <div className="column">
-            <div className="field">
-              <label className="label">Arriving At</label>
-              <div className="control">
-                <div className="select">
-                  <select
-                    name="station"
-                    onChange={this.handleDestinationChange.bind(this)}
-                  >
-                    {stnList.map(stn => (
-                      <option key={stn.abbr} value={JSON.stringify(stn)}>
-                        {stn.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
+          <div class="level-item">
+            <div class="field">
+              <label class="label has-text-left">Arrive</label>
+              <DropDown
+                handleChange={this.handleDestinationChange}
+                stnList={stnList}
+              />
             </div>
           </div>
-        </div>
+        </nav>
         {this.state.alert ? (
           <div className="has-text-danger">
             Cannot Leave and Arrive From Same Station
@@ -124,18 +111,18 @@ class Form extends Component {
               <input
                 type="radio"
                 name="arriveBy"
-                onChange={this.handleArriveByChange.bind(this)}
+                onChange={this.handleArriveByChange}
                 checked={this.state.arriveBy}
               />
-              Arrive By
+              Arriving Around
             </label>
             <label className="radio">
               <input
                 type="radio"
                 name="arriveBy"
-                onChange={this.handleArriveByChange.bind(this)}
+                onChange={this.handleArriveByChange}
               />
-              Leave By
+              Departing Around
             </label>
           </div>
         </div>
@@ -143,7 +130,7 @@ class Form extends Component {
           <label className="label">Date and Time</label>
           <DatePicker
             selected={this.state.tripDate}
-            onChange={this.handleDateChange.bind(this)}
+            onChange={this.handleDateChange}
             showTimeSelect
             timeFormat="HH:mm"
             timeIntervals={30}
@@ -153,10 +140,7 @@ class Form extends Component {
         </div>
         <div className="field is-grouped">
           <div className="control">
-            <button
-              className="button is-link"
-              onClick={this.handleFormSubmit.bind(this)}
-            >
+            <button className="button is-link" onClick={this.handleFormSubmit}>
               Submit
             </button>
           </div>
