@@ -77,35 +77,20 @@ class Form extends Component {
   render() {
     const { stnList } = this.props;
     return (
-      <div className="box main-form">
-        <nav class="level">
-          <div class="level-item">
-            <div class="field">
-              <label class="label has-text-left">Depart</label>
-              <DropDown
-                handleChange={this.handleOriginChange}
-                stnList={stnList}
-              />
-            </div>
-          </div>
-          <div class="level-item">
-            <div class="field">
-              <label class="label has-text-left">Arrive</label>
-              <DropDown
-                handleChange={this.handleDestinationChange}
-                stnList={stnList}
-              />
-            </div>
-          </div>
-        </nav>
-        {this.state.alert ? (
-          <div className="has-text-danger">
-            Cannot Leave and Arrive From Same Station
-          </div>
-        ) : (
-          <div />
-        )}
+      <div>
         <div className="field">
+          <label className="label has-text-left">Depart</label>
+          <DropDown handleChange={this.handleOriginChange} stnList={stnList} />
+        </div>
+        <div className="field">
+          <label className="label has-text-left">Arrive</label>
+          <DropDown
+            handleChange={this.handleDestinationChange}
+            stnList={stnList}
+          />
+        </div>
+        <div className="field">
+          <label className="label has-text-left">Date and Time</label>
           <div className="control">
             <label className="radio">
               <input
@@ -126,22 +111,28 @@ class Form extends Component {
             </label>
           </div>
         </div>
-        <div>
-          <label className="label">Date and Time</label>
+        <div className="field date-picker">
           <DatePicker
             selected={this.state.tripDate}
             onChange={this.handleDateChange}
             showTimeSelect
-            timeFormat="HH:mm"
+            timeFormat="hh:mm"
             timeIntervals={30}
             dateFormat="LLL"
             timeCaption="time"
           />
         </div>
+        {this.state.alert ? (
+          <div className="has-text-danger">
+            Cannot Leave and Arrive From Same Station
+          </div>
+        ) : (
+          <div />
+        )}
         <div className="field is-grouped">
           <div className="control">
             <button className="button is-link" onClick={this.handleFormSubmit}>
-              Submit
+              Get Schedule
             </button>
           </div>
         </div>
