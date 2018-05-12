@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import OneTrip from "./OneTrip.js";
-import "./AllTrips.css";
 
 class AllTrips extends Component {
   constructor(props) {
