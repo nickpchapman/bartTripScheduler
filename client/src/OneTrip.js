@@ -7,13 +7,13 @@ const OneTrip = ({ trip, stnLook }) => {
         return (
           <div key={leg["@trainId"]}>
             <div className="columns">
-              <div className="column is-one-third has-text-centered">
+              <div className="column has-text-centered">
                 <div className="is-size-5-desktop has-text-weight-bold">
                   {leg["@origTimeMin"]}
                 </div>
                 <div>{stnLook[leg["@origin"]]}</div>
               </div>
-              <div className="column has-text-centered is-one-third">
+              <div className="column has-text-centered">
                 {`${stnLook[leg["@trainHeadStation"]]} bound train`}
                 <div>
                   {leg["@transfercode"] === "" ? (
@@ -23,7 +23,7 @@ const OneTrip = ({ trip, stnLook }) => {
                   )}
                 </div>
               </div>
-              <div className="column is-one-third has-text-centered">
+              <div className="column has-text-centered">
                 <div className="is-size-5-desktop has-text-weight-bold ">
                   {leg["@destTimeMin"]}
                 </div>

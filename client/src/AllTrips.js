@@ -21,13 +21,14 @@ class AllTrips extends Component {
   render() {
     const { destination, origin, schedule, tripType } = this.props.currentTrips;
     const stnLook = this.props.stnLookup;
+
     return (
       <div>
         {!this.state.hasTripInfo ? (
           <div>select a new schedule</div>
         ) : (
-          <div className="box">
-            <div className="columns is-size-4-desktop has-text-centered">
+          <div className="box has-text-centered">
+            <div className="columns is-size-4-tablet">
               <div className="column is-5 has-text-weight-bold">
                 {stnLook[origin]}
               </div>
@@ -36,9 +37,12 @@ class AllTrips extends Component {
                 {stnLook[destination]}
               </div>
             </div>
-            <div className="is-size-5-desktop">
+            <div className="is-size-5-tablet">
               {`${tripType} by ${schedule.time} on ${schedule.date}`}
             </div>
+            <div className="is-size-5-tablet">{`fare: $${
+              schedule.request.trip[0]["@fare"]
+            }`}</div>
             {schedule.request.trip.map(singleTrip => {
               return (
                 <OneTrip

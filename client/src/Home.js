@@ -58,7 +58,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <section className="hero is-info is-fullheight is-bold background">
+        <section className="hero is-info is-fullheight is-bold">
           <div className="hero-head">
             <div className="container main-container">
               <h1 className="title">BART Trip Planner</h1>
