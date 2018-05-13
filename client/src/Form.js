@@ -89,7 +89,6 @@ class Form extends Component {
             stnList={stnList}
           />
         </div>
-
         <label className="label has-text-left">Date and Time</label>
         <div className="control">
           <label className="radio">
@@ -110,7 +109,6 @@ class Form extends Component {
             Depart by
           </label>
         </div>
-
         <div className="field date-picker">
           <DatePicker
             selected={this.state.tripDate}

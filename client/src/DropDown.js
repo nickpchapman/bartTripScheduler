@@ -1,12 +1,12 @@
 import React from "react";
 
-const DropDown = props => {
+const DropDown = ({ stnList, handleChange }) => {
   return (
     <div className="field">
       <div className="control">
         <div className="select is-info">
-          <select name="station" onChange={props.handleChange}>
-            {props.stnList.map(stn => (
+          <select name="station" onChange={handleChange}>
+            {stnList.map(stn => (
               <option key={stn.abbr} value={JSON.stringify(stn)}>
                 {stn.name}
               </option>

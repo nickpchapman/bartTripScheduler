@@ -14,6 +14,8 @@ class Home extends Component {
       stnLookup: false,
       currentSchedule: false
     };
+
+    this.getTripSchedule = this.getTripSchedule.bind(this);
   }
 
   componentDidMount() {
@@ -61,13 +63,12 @@ class Home extends Component {
             <div className="container main-container">
               <h1 className="title">BART Trip Planner</h1>
               <h2 className="subtitle">Now with more BART!</h2>
-
               <div className="columns">
                 <div className="column is-narrow">
                   <div className="box">
                     <Form
                       stnList={this.state.stnList}
-                      getNewSchedule={this.getTripSchedule.bind(this)}
+                      getNewSchedule={this.getTripSchedule}
                     />
                   </div>
                 </div>
