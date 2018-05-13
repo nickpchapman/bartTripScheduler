@@ -11,10 +11,10 @@ class Form extends Component {
     super(props);
     this.state = {
       arriveBy: true,
-      tripDate: moment(),
       destStn: false,
       hasSameStns: false,
-      originStn: false
+      originStn: false,
+      tripDate: moment()
     };
 
     this.handleArriveByChange = this.handleArriveByChange.bind(this);
@@ -24,12 +24,13 @@ class Form extends Component {
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-  //set default stations for origin and destination
+  //set default origin/destination stations when stnList is received
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (!prevState.originStn && nextProps.stnList) {
+    const hasStnList = nextProps.stnList.length > 0;
+    if (!prevState.originStn && hasStnList) {
       prevState.originStn = nextProps.stnList[0];
     }
-    if (!prevState.destStn && nextProps.stnList) {
+    if (!prevState.destStn && hasStnList) {
       prevState.destStn = nextProps.stnList[0];
     }
     return prevState;
