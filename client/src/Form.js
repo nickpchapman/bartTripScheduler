@@ -98,7 +98,7 @@ class Form extends Component {
               onChange={this.handleArriveByChange}
               checked={this.state.arriveBy}
             />
-            Arrive by
+            {" Arrive by"}
           </label>
           <label className="radio">
             <input
@@ -106,7 +106,7 @@ class Form extends Component {
               name="arriveBy"
               onChange={this.handleArriveByChange}
             />
-            Depart by
+            {" Depart by"}
           </label>
         </div>
         <div className="field date-picker">
@@ -121,8 +121,11 @@ class Form extends Component {
           />
         </div>
         {this.state.alert ? (
-          <div className="has-text-danger">
-            Cannot Leave and Arrive From Same Station
+          <div>
+            <div className="has-text-danger">
+              Cannot Leave and Arrive From Same Station
+            </div>
+            <br />
           </div>
         ) : (
           <div />
