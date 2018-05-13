@@ -37,7 +37,7 @@ class AllTrips extends Component {
               </div>
             </div>
             <div className="is-size-5-desktop">
-              {`${tripType} around ${schedule.time} on ${schedule.date}`}
+              {`${tripType} by ${schedule.time} on ${schedule.date}`}
             </div>
             {schedule.request.trip.map(singleTrip => {
               return (

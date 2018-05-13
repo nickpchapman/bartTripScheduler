@@ -99,7 +99,7 @@ class Form extends Component {
               onChange={this.handleArriveByChange}
               checked={this.state.arriveBy}
             />
-            Arriving around
+            Arrive by
           </label>
           <label className="radio">
             <input
@@ -107,7 +107,7 @@ class Form extends Component {
               name="arriveBy"
               onChange={this.handleArriveByChange}
             />
-            Departing around
+            Depart by
           </label>
         </div>
 

@@ -33,13 +33,13 @@ app.get("/stnList", (req, res) => {
 //handle request for a current schedule between two stations
 app.get("/newSchedule", (req, res) => {
   const head = "http://api.bart.gov/api/sched.aspx?";
-  const tail = "&b=2&a=2&json=y";
-  const key = "&key=MW9S-E7SL-26DU-VV8V";
   const type = "cmd=" + req.query.type;
+  const key = "&key=MW9S-E7SL-26DU-VV8V";
   const orig = "&orig=" + req.query.orig;
   const dest = "&dest=" + req.query.dest;
   const date = "&date=" + req.query.date;
   const time = "&time=" + req.query.time;
+  const tail = "&b=3&a=1&json=y";
 
   axios
     .get(head + type + key + orig + dest + date + time + tail)

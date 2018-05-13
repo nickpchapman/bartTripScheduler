@@ -7,7 +7,7 @@ const OneTrip = ({ trip, stnLook }) => {
         return (
           <div key={leg["@trainId"]}>
             <div className="columns">
-              <div className="column is-one-third">
+              <div className="column is-one-third has-text-centered">
                 <div className="is-size-5-desktop has-text-weight-bold">
                   {leg["@origTimeMin"]}
                 </div>
@@ -23,7 +23,7 @@ const OneTrip = ({ trip, stnLook }) => {
                   )}
                 </div>
               </div>
-              <div className="column is-one-third has-text-right">
+              <div className="column is-one-third has-text-centered">
                 <div className="is-size-5-desktop has-text-weight-bold ">
                   {leg["@destTimeMin"]}
                 </div>
