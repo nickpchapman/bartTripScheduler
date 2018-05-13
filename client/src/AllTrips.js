@@ -10,7 +10,7 @@ class AllTrips extends Component {
     };
   }
 
-  //only attempt to render trip info if props have been received
+  //only render trip data if props have been received
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!prevState.hasTripInfo && nextProps.currentTrips) {
       prevState.hasTripInfo = true;
@@ -19,36 +19,39 @@ class AllTrips extends Component {
   }
 
   render() {
-    const { destination, origin, schedule, tripType } = this.props.currentTrips;
-    const stnLook = this.props.stnLookup;
+    const propsPassed = this.state.hasTripInfo;
+    const stnLookup = propsPassed && this.props.stnLookup;
+    const allTripsData = propsPassed && this.props.currentTrips;
+    const allTripsList = propsPassed && allTripsData.schedule.request.trip;
+    const originStn = propsPassed && stnLookup[allTripsData.origin];
+    const destStn = propsPassed && stnLookup[allTripsData.destination];
+    const fare = propsPassed && allTripsData.schedule.request.trip[0]["@fare"];
 
     return (
       <div>
-        {!this.state.hasTripInfo ? (
-          <div>select a new schedule</div>
-        ) : (
+        {propsPassed && (
           <div className="box has-text-centered">
             <div className="columns is-size-4-tablet">
               <div className="column is-5 has-text-weight-bold">
-                {stnLook[origin]}
+                {originStn}
               </div>
               <div className="column is-2">to</div>
-              <div className="column is-5 has-text-weight-bold">
-                {stnLook[destination]}
-              </div>
+              <div className="column is-5 has-text-weight-bold">{destStn}</div>
             </div>
             <div className="is-size-5-tablet">
-              {`${tripType} by ${schedule.time} on ${schedule.date}`}
+              {`${allTripsData.tripType} by ${allTripsData.schedule.time} on ${
+                allTripsData.schedule.date
+              }`}
             </div>
-            <div className="is-size-5-tablet">{`fare: $${
-              schedule.request.trip[0]["@fare"]
-            }`}</div>
-            {schedule.request.trip.map(singleTrip => {
+            <div className="is-size-5-tablet">{`fare: $${fare}`}</div>
+            {allTripsList.map(singleTrip => {
               return (
                 <OneTrip
+                  destStn={destStn}
                   key={singleTrip.leg[0]["@trainId"]}
+                  stnLookup={stnLookup}
                   trip={singleTrip}
-                  stnLook={stnLook}
+                  originStn={originStn}
                 />
               );
             })}

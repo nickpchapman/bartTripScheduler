@@ -1,36 +1,39 @@
 const express = require("express");
 const app = express();
+
 const port = process.env.PORT || 3001;
 
 const axios = require("axios");
 
+//test route
 app.get("/", (req, res) => {
   res.send(res);
 });
 
-//handle request for a current list of all Bart stations
+//handle request for BART station list
 app.get("/stnList", (req, res) => {
-  axios
-    .get(
-      "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y"
-    )
-    .then(response => {
-      const stnInfo = response.data.root.stations;
+  const url =
+    "http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V&json=y";
 
-      //add station abbr hash for station name lookup
-      stnInfo.lookup = stnInfo.station.reduce((hash, stn) => {
+  axios
+    .get(url)
+    .then(response => {
+      const stnData = response.data.root.stations;
+
+      //add station name abbreviation hash to stnData
+      stnData.lookup = stnData.station.reduce((hash, stn) => {
         hash[stn.abbr] = stn.name;
         return hash;
       }, {});
 
-      res.json(stnInfo);
+      res.json(stnData);
     })
     .catch(function(error) {
       console.log(error);
     });
 });
 
-//handle request for a current schedule between two stations
+//handle request for schedule between two stations
 app.get("/newSchedule", (req, res) => {
   const head = "http://api.bart.gov/api/sched.aspx?";
   const type = "cmd=" + req.query.type;
@@ -40,13 +43,14 @@ app.get("/newSchedule", (req, res) => {
   const date = "&date=" + req.query.date;
   const time = "&time=" + req.query.time;
   const tail = "&b=3&a=1&json=y";
+  const url = head + type + key + orig + dest + date + time + tail;
 
   axios
-    .get(head + type + key + orig + dest + date + time + tail)
+    .get(url)
     .then(response => {
       const scheduleInfo = response.data.root;
 
-      //add 'arrive' or 'depart' value to indicate request type
+      //save request type with 'arrive' or 'depart' string
       scheduleInfo.tripType = req.query.type;
 
       res.json(scheduleInfo);

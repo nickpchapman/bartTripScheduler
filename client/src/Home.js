@@ -10,12 +10,12 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      allTripsList: false,
       stnList: [],
-      stnLookup: false,
-      currentSchedule: false
+      stnLookup: false
     };
 
-    this.getTripSchedule = this.getTripSchedule.bind(this);
+    this.getNewSchedule = this.getNewSchedule.bind(this);
   }
 
   componentDidMount() {
@@ -36,19 +36,19 @@ class Home extends Component {
       });
   }
 
-  getTripSchedule(tripType, startStn, endStn, tripDate, tripTime) {
+  getNewSchedule(tripDate, destStn, originStn, tripTime, tripType) {
     axios
       .get("/newSchedule", {
         params: {
-          type: tripType,
-          orig: startStn,
-          dest: endStn,
           date: tripDate,
-          time: tripTime
+          dest: destStn,
+          orig: originStn,
+          time: tripTime,
+          type: tripType
         }
       })
       .then(response => {
-        this.setState({ currentSchedule: response.data });
+        this.setState({ allTripsList: response.data });
       })
       .catch(function(error) {
         console.log(error);
@@ -58,7 +58,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <section className="hero is-info is-fullheight is-bold">
+        <section className="hero is-bold is-fullheight is-info ">
           <div className="hero-head">
             <div className="container main-container">
               <h1 className="title">BART Trip Planner</h1>
@@ -67,14 +67,14 @@ class Home extends Component {
                 <div className="column is-narrow">
                   <div className="box">
                     <Form
+                      getNewSchedule={this.getNewSchedule}
                       stnList={this.state.stnList}
-                      getNewSchedule={this.getTripSchedule}
                     />
                   </div>
                 </div>
                 <div className="column">
                   <AllTrips
-                    currentTrips={this.state.currentSchedule}
+                    currentTrips={this.state.allTripsList}
                     stnLookup={this.state.stnLookup}
                   />
                 </div>

@@ -2,41 +2,54 @@ import React, { Component } from "react";
 import DatePicker from "react-datepicker";
 import moment from "moment";
 
-import DropDown from "./DropDown.js";
+import RadioBtnPair from "./RadioBtnPair.js";
+import StnDropDown from "./StnDropDown.js";
 import "react-datepicker/dist/react-datepicker.css";
 
 class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tripDate: moment(),
-      originStn: false,
-      destinationStn: false,
       arriveBy: true,
-      alert: false
+      tripDate: moment(),
+      destStn: false,
+      hasSameStns: false,
+      originStn: false
     };
 
-    this.handleOriginChange = this.handleOriginChange.bind(this);
-    this.handleDestinationChange = this.handleDestinationChange.bind(this);
     this.handleArriveByChange = this.handleArriveByChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleDestinationChange = this.handleDestinationChange.bind(this);
+    this.handleOriginChange = this.handleOriginChange.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   //set default stations for origin and destination
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (!prevState.originStn) {
+    if (!prevState.originStn && nextProps.stnList) {
       prevState.originStn = nextProps.stnList[0];
     }
-    if (!prevState.destinationStn) {
-      prevState.destinationStn = nextProps.stnList[0];
+    if (!prevState.destStn && nextProps.stnList) {
+      prevState.destStn = nextProps.stnList[0];
     }
     return prevState;
+  }
+
+  handleArriveByChange() {
+    this.setState(prevState => ({
+      arriveBy: !prevState.arriveBy
+    }));
   }
 
   handleDateChange(date) {
     this.setState({
       tripDate: date
+    });
+  }
+
+  handleDestinationChange(e) {
+    this.setState({
+      destStn: JSON.parse(e.target.value)
     });
   }
 
@@ -46,90 +59,53 @@ class Form extends Component {
     });
   }
 
-  handleDestinationChange(e) {
-    this.setState({
-      destinationStn: JSON.parse(e.target.value)
-    });
-  }
-
-  handleArriveByChange() {
-    this.setState(prevState => ({
-      arriveBy: !prevState.arriveBy
-    }));
-  }
-
   handleFormSubmit() {
-    const type = this.state.arriveBy ? "arrive" : "depart";
-    const start = this.state.originStn.abbr;
-    const end = this.state.destinationStn.abbr;
     const date = this.state.tripDate.format("MM/DD/YYYY");
+    const destStn = this.state.destStn.abbr;
+    const originStn = this.state.originStn.abbr;
     const time = this.state.tripDate.format("h:mm+a");
+    const type = this.state.arriveBy ? "arrive" : "depart";
 
-    //set alert message if origin/destination station the same
-    if (start === end) {
-      this.setState({ alert: true });
+    //check origin/destination stations are different before request
+    if (originStn === destStn) {
+      this.setState({ hasSameStns: true });
     } else {
-      this.setState({ alert: false });
-      this.props.getNewSchedule(type, start, end, date, time);
+      this.setState({ hasSameStns: false });
+      this.props.getNewSchedule(date, destStn, originStn, time, type);
     }
   }
 
   render() {
-    const { stnList } = this.props;
     return (
       <div>
+        <StnDropDown
+          list={this.props.stnList}
+          onChange={this.handleOriginChange}
+          title="Depart"
+        />
+        <StnDropDown
+          list={this.props.stnList}
+          onChange={this.handleDestinationChange}
+          title="Arrive"
+        />
+        <RadioBtnPair
+          btn1=" Arrive by"
+          btn2=" Depart by"
+          changeFunc={this.handleArriveByChange}
+          title="Date and Time"
+          toggle={this.state.arriveBy}
+        />
         <div className="field">
-          <label className="label has-text-left">Depart</label>
-          <DropDown handleChange={this.handleOriginChange} stnList={stnList} />
-        </div>
-        <div className="field">
-          <label className="label has-text-left">Arrive</label>
-          <DropDown
-            handleChange={this.handleDestinationChange}
-            stnList={stnList}
-          />
-        </div>
-        <label className="label has-text-left">Date and Time</label>
-        <div className="control">
-          <label className="radio">
-            <input
-              type="radio"
-              name="arriveBy"
-              onChange={this.handleArriveByChange}
-              checked={this.state.arriveBy}
-            />
-            {" Arrive by"}
-          </label>
-          <label className="radio">
-            <input
-              type="radio"
-              name="arriveBy"
-              onChange={this.handleArriveByChange}
-            />
-            {" Depart by"}
-          </label>
-        </div>
-        <div className="field date-picker">
           <DatePicker
-            selected={this.state.tripDate}
-            onChange={this.handleDateChange}
-            showTimeSelect
-            timeFormat="hh:mm"
-            timeIntervals={30}
+            className="input is-info field"
             dateFormat="LLL"
+            onChange={this.handleDateChange}
+            selected={this.state.tripDate}
+            showTimeSelect
             timeCaption="time"
+            timeIntervals={30}
           />
         </div>
-        {this.state.alert ? (
-          <div>
-            <div className="has-text-danger">
-              Cannot Leave and Arrive From Same Station
-            </div>
-            <br />
-          </div>
-        ) : (
-          <div />
-        )}
         <div className="field is-grouped">
           <div className="control">
             <button className="button is-link" onClick={this.handleFormSubmit}>
@@ -137,6 +113,11 @@ class Form extends Component {
             </button>
           </div>
         </div>
+        {this.state.hasSameStns && (
+          <div className="has-text-danger">
+            Cannot depart and arrive at same station!
+          </div>
+        )}
       </div>
     );
   }
