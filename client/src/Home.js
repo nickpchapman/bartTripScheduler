@@ -10,7 +10,7 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      allTripsList: false,
+      allTripsInfo: false,
       stnList: [],
       stnLookup: false
     };
@@ -48,7 +48,7 @@ class Home extends Component {
         }
       })
       .then(response => {
-        this.setState({ allTripsList: response.data });
+        this.setState({ allTripsInfo: response.data });
       })
       .catch(function(error) {
         console.log(error);
@@ -74,7 +74,7 @@ class Home extends Component {
                 </div>
                 <div className="column">
                   <AllTrips
-                    currentTrips={this.state.allTripsList}
+                    allTripsInfo={this.state.allTripsInfo}
                     stnLookup={this.state.stnLookup}
                   />
                 </div>

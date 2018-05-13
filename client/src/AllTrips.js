@@ -10,9 +10,9 @@ class AllTrips extends Component {
     };
   }
 
-  //only render trip data if props have been received
+  //only render trip data if allTripsInfo object was received
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (!prevState.hasTripInfo && nextProps.currentTrips) {
+    if (!prevState.hasTripInfo && typeof nextProps.allTripsInfo === "object") {
       prevState.hasTripInfo = true;
     }
     return prevState;
@@ -21,7 +21,7 @@ class AllTrips extends Component {
   render() {
     const propsPassed = this.state.hasTripInfo;
     const stnLookup = propsPassed && this.props.stnLookup;
-    const allTripsData = propsPassed && this.props.currentTrips;
+    const allTripsData = propsPassed && this.props.allTripsInfo;
     const allTripsList = propsPassed && allTripsData.schedule.request.trip;
     const originStn = propsPassed && stnLookup[allTripsData.origin];
     const destStn = propsPassed && stnLookup[allTripsData.destination];
