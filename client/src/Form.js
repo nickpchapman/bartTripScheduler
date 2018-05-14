@@ -26,7 +26,7 @@ class Form extends Component {
 
   //set default origin/destination stations when stnList is received
   static getDerivedStateFromProps(nextProps, prevState) {
-    const hasStnList = nextProps.stnList.length > 0;
+    const hasStnList = nextProps.stnList.length > 0 ? true : false;
     if (!prevState.originStn && hasStnList) {
       prevState.originStn = nextProps.stnList[0];
     }

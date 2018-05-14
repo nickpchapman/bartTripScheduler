@@ -1,6 +1,6 @@
 import React from "react";
 
-const TripsHeader = ({ originStn, destStn, allTripsData, fare }) => {
+const TripsHeader = ({ allTripsData, destStn, fare, originStn }) => {
   return (
     <div>
       <div className="columns is-size-4-tablet">

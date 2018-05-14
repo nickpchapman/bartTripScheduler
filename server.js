@@ -7,11 +7,6 @@ const axios = require("axios");
 
 app.use("/", express.static(`${__dirname}/client/build`));
 
-//test route
-app.get("/", (req, res) => {
-  res.send(res);
-});
-
 //handle request for BART station list
 app.get("/stnList", (req, res) => {
   const url =
@@ -50,12 +45,12 @@ app.get("/newSchedule", (req, res) => {
   axios
     .get(url)
     .then(response => {
-      const scheduleInfo = response.data.root;
+      const tripData = response.data.root;
 
       //save request type with 'arrive' or 'depart' string
-      scheduleInfo.tripType = req.query.type;
+      tripData.tripType = req.query.type;
 
-      res.json(scheduleInfo);
+      res.json(tripData);
     })
     .catch(function(error) {
       console.log(error);

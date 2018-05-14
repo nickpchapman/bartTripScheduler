@@ -1,6 +1,6 @@
 import React from "react";
 
-const LegEndPoint = ({ time, stn }) => {
+const LegEndPoint = ({ stn, time }) => {
   return (
     <div className="column">
       <div className="has-text-weight-bold is-size-5-desktop ">{time}</div>
