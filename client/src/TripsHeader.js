@@ -8,7 +8,6 @@ const TripsHeader = ({ originStn, destStn, allTripsData, fare }) => {
         <div className="column is-2">to</div>
         <div className="column is-5 has-text-weight-bold">{destStn}</div>
       </div>
-
       <div className="is-size-5-tablet">
         {`${allTripsData.tripType} by ${allTripsData.schedule.time} on ${
           allTripsData.schedule.date
