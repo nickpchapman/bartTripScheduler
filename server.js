@@ -5,6 +5,8 @@ const port = process.env.PORT || 3001;
 
 const axios = require("axios");
 
+app.use("/", express.static(`${__dirname}/client/build`));
+
 //test route
 app.get("/", (req, res) => {
   res.send(res);
