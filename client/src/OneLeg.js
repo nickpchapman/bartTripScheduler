@@ -1,13 +1,6 @@
 import React from "react";
 
-const TripEndPoint = ({ time, stn }) => {
-  return (
-    <div className="column has-text-centered">
-      <div className="has-text-weight-bold is-size-5-desktop ">{time}</div>
-      <div>{stn}</div>
-    </div>
-  );
-};
+import LegEndPoint from "./LegEndPoint.js";
 
 const OneLeg = ({ destStn, leg, originStn, stnLookup }) => {
   const arriveTime = leg["@destTimeMin"];
@@ -18,11 +11,11 @@ const OneLeg = ({ destStn, leg, originStn, stnLookup }) => {
   return (
     <div>
       <div className="columns">
-        <TripEndPoint time={departTime} stn={originStn} />
+        <LegEndPoint time={departTime} stn={originStn} />
         <div className="column has-text-centered">
           {`${bartLine} bound train`}
         </div>
-        <TripEndPoint time={arriveTime} stn={destStn} />
+        <LegEndPoint time={arriveTime} stn={destStn} />
       </div>
       {hasTransfer && (
         <div className="has-text-danger">
