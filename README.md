@@ -9,8 +9,8 @@ By Nick Chapman
 1.  Navigate to [project](https://github.com/nickpchapman/bartTripScheduler)
 2.  Setup a local clone using
     `git clone https://github.com/nickpchapman/bartTripScheduler.git`
-3.  Install dependencies using `yarn`
-4.  Navigate to project folder and run server using `yarn server`
+3.  Navigate to project folder and install dependencies using `yarn`
+4.  Run server using `yarn server`
 5.  Navigate to app in [browser](http://localhost:3001)
 
 ## Dependencies
