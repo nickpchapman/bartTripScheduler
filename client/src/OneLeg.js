@@ -10,11 +10,9 @@ const OneLeg = ({ destStn, leg, originStn, stnLookup }) => {
 
   return (
     <div>
-      <div className="columns">
+      <div className="columns has-text-centered">
         <LegEndPoint time={departTime} stn={originStn} />
-        <div className="column has-text-centered">
-          {`${bartLine} bound train`}
-        </div>
+        <div className="column">{`${bartLine} bound train`}</div>
         <LegEndPoint time={arriveTime} stn={destStn} />
       </div>
       {hasTransfer && (

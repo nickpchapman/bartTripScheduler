@@ -78,7 +78,7 @@ class Form extends Component {
 
   render() {
     return (
-      <div>
+      <div className="box">
         <StnDropDown
           list={this.props.stnList}
           onChange={this.handleOriginChange}

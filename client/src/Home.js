@@ -65,12 +65,10 @@ class Home extends Component {
               <h2 className="subtitle">Now with more BART!</h2>
               <div className="columns">
                 <div className="column is-narrow">
-                  <div className="box">
-                    <Form
-                      getNewSchedule={this.getNewSchedule}
-                      stnList={this.state.stnList}
-                    />
-                  </div>
+                  <Form
+                    getNewSchedule={this.getNewSchedule}
+                    stnList={this.state.stnList}
+                  />
                 </div>
                 <div className="column">
                   <AllTrips
