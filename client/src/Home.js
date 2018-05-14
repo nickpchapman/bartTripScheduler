@@ -71,10 +71,12 @@ class Home extends Component {
                   />
                 </div>
                 <div className="column">
-                  <AllTrips
-                    allTripsInfo={this.state.allTripsInfo}
-                    stnLookup={this.state.stnLookup}
-                  />
+                  {this.state.allTripsInfo && (
+                    <AllTrips
+                      allTripsData={this.state.allTripsInfo}
+                      stnLookup={this.state.stnLookup}
+                    />
+                  )}
                 </div>
               </div>
             </div>
